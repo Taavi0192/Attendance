@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +12,12 @@ const Login = () => {
       const response = await axios.post('/api/login', { email, password });
       alert(response.data.message);
     } catch (error) {
-      alert(error.response.data.message);
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        alert(axiosError.response?.data.message);
+      } else {
+        alert('An unexpected error occurred');
+      }
     }
   };
 

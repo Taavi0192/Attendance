@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { email, password } = req.body;
 
     const client = await clientPromise;
-    const db = client.db('attendance'); // Use your database name here
+    const db = client.db('Attendance2'); // Use your database name here
 
     const user = await db.collection('users').findOne({ email });
 
