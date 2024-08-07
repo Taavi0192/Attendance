@@ -1,22 +1,21 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useAuth } from '../context/AuthContext';
 
-const Login = () => {
-  const [email, setEmailInput] = useState('');
-  const [password, setPassword] = useState('');
+const RequestLeave = () => {
+  const { email } = useAuth(); // Assuming email is stored in state or received from context
+  const [date, setDate] = useState('');
+  const [reason, setReason] = useState('');
   const router = useRouter();
-  const { setEmail } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/user/login', { email, password });
+      const response = await axios.post('/api/leave/request', { email, date, reason });
       alert(response.data.message);
-      setEmail(email);
-      router.push('/user/dashboard');
+      router.push('/user/dashboard'); // Redirect to the dashboard page
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<{ message: string }>;
@@ -29,25 +28,24 @@ const Login = () => {
 
   return (
     <div style={styles.container}>
-      <h1>Login</h1>
+      <h1>Request Leave</h1>
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmailInput(e.target.value)}
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
           required
           style={styles.input}
         />
         <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          type="text"
+          placeholder="Reason"
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
           required
           style={styles.input}
         />
-        <button type="submit" style={styles.button}>Login</button>
+        <button type="submit" style={styles.button}>Submit</button>
       </form>
     </div>
   );
@@ -79,4 +77,4 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
 };
 
-export default Login;
+export default RequestLeave;
