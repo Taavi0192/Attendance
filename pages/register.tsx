@@ -1,13 +1,24 @@
 import { useState } from 'react';
+import axios, { AxiosError } from 'axios';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ email, password });
-    // You will replace the console.log with your registration logic
+
+    try {
+      const response = await axios.post('/api/register', { email, password });
+      alert(response.data.message);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        alert(axiosError.response?.data.message);
+      } else {
+        alert('An unexpected error occurred');
+      }
+    }
   };
 
   return (
