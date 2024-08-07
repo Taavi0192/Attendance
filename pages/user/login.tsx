@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios, { AxiosError } from 'axios';
 
-const Register = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -9,7 +9,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/adminregister', { email, password });
+      const response = await axios.post('/api/user/login', { email, password });
       alert(response.data.message);
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -23,7 +23,7 @@ const Register = () => {
 
   return (
     <div style={styles.container}>
-      <h1>Register</h1>
+      <h1>Login</h1>
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
           type="email"
@@ -41,7 +41,7 @@ const Register = () => {
           required
           style={styles.input}
         />
-        <button type="submit" style={styles.button}>Register</button>
+        <button type="submit" style={styles.button}>Login</button>
       </form>
     </div>
   );
@@ -73,4 +73,4 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
 };
 
-export default Register;
+export default Login;

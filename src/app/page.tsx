@@ -6,10 +6,10 @@ const Home: FC = () => {
     <div style={styles.container}>
       <h1>Attendance Management System</h1>
       <div style={styles.buttonContainer}>
-        <Link href="/adminportal">
+        <Link href="/admin/portal">
           <button style={styles.button}>Admin Portal</button>
         </Link>
-        <Link href="/userportal">
+        <Link href="/user/portal">
           <button style={styles.button}>User Portal</button>
         </Link>
       </div>
