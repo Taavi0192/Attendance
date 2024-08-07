@@ -1,16 +1,16 @@
 import Link from 'next/link';
 import { FC, CSSProperties } from 'react';
 
-const Home: FC = () => {
+const adminportal: FC = () => {
   return (
     <div style={styles.container}>
-      <h1>Attendance Management System</h1>
+      <h1>Admin Portal</h1>
       <div style={styles.buttonContainer}>
-        <Link href="/adminportal">
-          <button style={styles.button}>Admin Portal</button>
+        <Link href="/adminregister">
+          <button style={styles.button}>Register</button>
         </Link>
-        <Link href="/userportal">
-          <button style={styles.button}>User Portal</button>
+        <Link href="/adminlogin">
+          <button style={styles.button}>Login</button>
         </Link>
       </div>
     </div>
@@ -41,4 +41,4 @@ const styles: { [key: string]: CSSProperties } = {
   },
 };
 
-export default Home;
+export default adminportal;
