@@ -2,15 +2,13 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../lib/mongodb';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    const { email, date, status } = req.body;
-
+  if (req.method === 'GET') {
     const client = await clientPromise;
     const db = client.db();
 
-    const newRecord = await db.collection('attendance').insertOne({ email, date: new Date(date), status });
+    const leaveRequests = await db.collection('leaveRequests').find({ status: 'Pending' }).toArray();
 
-    res.status(201).json({ _id: newRecord.insertedId, email, date, status });
+    res.status(200).json(leaveRequests);
   } else {
     res.status(405).json({ message: 'Method not allowed' });
   }

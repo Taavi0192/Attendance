@@ -1,16 +1,22 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../lib/mongodb';
+import { ObjectId } from 'mongodb';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    const { email, date, status } = req.body;
+  const { id } = req.query;
+
+  if (req.method === 'PUT') {
+    const { status } = req.body;
 
     const client = await clientPromise;
     const db = client.db();
 
-    const newRecord = await db.collection('attendance').insertOne({ email, date: new Date(date), status });
+    await db.collection('attendance').updateOne(
+      { _id: new ObjectId(id as string) },
+      { $set: { status } }
+    );
 
-    res.status(201).json({ _id: newRecord.insertedId, email, date, status });
+    res.status(200).json({ message: 'Attendance record updated successfully' });
   } else {
     res.status(405).json({ message: 'Method not allowed' });
   }

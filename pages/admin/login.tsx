@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import axios, { AxiosError } from 'axios';
+import { useRouter } from 'next/router';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmailInput] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
+  const { setEmail } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -11,6 +15,8 @@ const Login = () => {
     try {
       const response = await axios.post('/api/admin/login', { email, password });
       alert(response.data.message);
+      setEmail(email);
+      router.push('/admin/dashboard')
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<{ message: string }>;
@@ -29,7 +35,7 @@ const Login = () => {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmailInput(e.target.value)}
           required
           style={styles.input}
         />

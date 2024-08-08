@@ -8,9 +8,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const client = await clientPromise;
     const db = client.db();
 
-    const newRecord = await db.collection('attendance').insertOne({ email, date: new Date(date), status });
+    await db.collection('attendance').insertOne({ email, date: new Date(date), status });
 
-    res.status(201).json({ _id: newRecord.insertedId, email, date, status });
+    res.status(201).json({ message: 'Attendance added successfully' });
   } else {
     res.status(405).json({ message: 'Method not allowed' });
   }
