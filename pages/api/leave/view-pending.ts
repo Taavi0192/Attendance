@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const client = await clientPromise;
     const db = client.db();
 
-    const leaveRequests = await db.collection('leaveRequests').find({}).toArray();
+    const leaveRequests = await db.collection('leaveRequests').find({ status: 'Pending' }).toArray();
 
     res.status(200).json(leaveRequests);
   } else {

@@ -9,9 +9,6 @@ const AdminDashboard: FC = () => {
         <Link href="/admin/view-attendance">
           <button style={styles.button}>View Attendance Records</button>
         </Link>
-        <Link href="/admin/manage-attendance">
-          <button style={styles.button}>Manage Attendance</button>
-        </Link>
         <Link href="/admin/view-leave-requests">
           <button style={styles.button}>View Leave Requests</button>
         </Link>
