@@ -9,7 +9,7 @@ const MarkAttendance = () => {
 
   const handleMarkAttendance = async () => {
     try {
-      const response = await axios.post('/api/attendance/mark', { email });
+      const response = await axios.post('/api/user/mark-attendance', { email });
       alert(response.data.message);
       router.push('/user/dashboard'); // Redirect to the dashboard page
     } catch (error) {

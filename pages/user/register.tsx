@@ -13,7 +13,7 @@ const Register = () => {
     try {
       const response = await axios.post('/api/user/register', { email, password });
       alert(response.data.message);
-      router.push('/user/dashboard');
+      router.push('/user/login');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<{ message: string }>;

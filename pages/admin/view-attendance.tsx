@@ -43,7 +43,7 @@ const ViewAttendance = () => {
       } else {
         // Create new record
         const newRecord = { ...record, status: 'Present' };
-        const response = await axios.post('/api/attendance/mark', newRecord);
+        const response = await axios.post('/api/admin/mark-attendance', newRecord);
         setAttendanceRecords((prevRecords) => [...prevRecords, response.data]);
       }
     } catch (error) {

@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import axios, { AxiosError } from 'axios';
+import { useRouter } from 'next/router';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -11,6 +13,7 @@ const Register = () => {
     try {
       const response = await axios.post('/api/admin/register', { email, password });
       alert(response.data.message);
+      router.push('/admin/login');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<{ message: string }>;
